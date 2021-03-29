@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="icon" href="/static/images/favicon.png" type="image/x-icon" />
+        <link rel="shortcut icon" href="/static/images/favicon.png" type="image/x-icon" />
+        <meta charset="utf-8">
+        <title> index </title>
+    </head>
+    <body>
+        <div id="app"></div>
+        <script src="/static/lib.bundle.js"></script>
+        <script>
+            window.PROJECT_CONFIG = (function () {
+                const SITE_URL = '/'
+                const BK_STATIC_URL = '/'
+                const REMOTE_STATIC_URL = ''
+
+                return {
+                    SITE_URL: SITE_URL,
+                    BK_STATIC_URL: BK_STATIC_URL,
+                    REMOTE_STATIC_URL: REMOTE_STATIC_URL
+                }
+            })()
+
+            window.onload = function () {
+                let ta = document.createElement('script')
+                ta.src = '//tajs.qq.com/stats?sId=64878578'
+                ta.defer = 'defer'
+                let s = document.getElementsByTagName('script')[0]
+                s.parentNode.insertBefore(ta, s)
+            }
+        </script>
+    </body>
+</html>
