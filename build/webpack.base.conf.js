@@ -103,6 +103,14 @@ export default {
                         name: assetsPath('fonts/[name].[hash:7].[ext]')
                     }
                 }
+            },
+            {
+                test: /\.scss$/,
+                use: [
+                    'vue-style-loader',
+                    'css-loader',
+                    'sass-loader'
+                ]
             }
         ]
     },

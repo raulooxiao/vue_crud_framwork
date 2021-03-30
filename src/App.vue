@@ -68,7 +68,7 @@
     }
 </script>
 
-<style lang="postcss">
+<style lang="scss" scoped>
     @import './css/reset.css';
     @import './css/app.css';
 
