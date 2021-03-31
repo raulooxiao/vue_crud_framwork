@@ -2,7 +2,7 @@
     <header class="header-layout">
         <div class="logo">
             <router-link class="logo-link" to="/index">
-                {{$t('配置平台')}}
+                CRUD平台
             </router-link>
         </div>
         <nav class="header-nav">
@@ -13,7 +13,7 @@
                 :class="{
                     active: isLinkActive(nav)
                 }">
-                {{$t(nav.i18n)}}
+                {{nav.i18n}}
             </router-link>
         </nav>
         <section class="header-info">
@@ -34,7 +34,7 @@
                     <a class="question-link" href="javascript:void(0)"
                         @click="handleLogout">
                         <i class="icon-cc-logout"></i>
-                        {{$t('注销')}}
+                        注销
                     </a>
                 </template>
             </bk-popover>
@@ -49,9 +49,9 @@
                 }">
                 <i class="question-icon icon-cc-default"></i>
                 <template slot="content">
-                    <a class="question-link" target="_blank" :href="helpDocUrl">{{$t('产品文档')}}</a>
-                    <a class="question-link" target="_blank" href="https://bk.tencent.com/s-mart/community">{{$t('问题反馈')}}</a>
-                    <a class="question-link" target="_blank" href="https://github.com/Tencent/bk-cmdb">{{$t('开源社区')}}</a>
+                    <a class="question-link" target="_blank" :href="helpDocUrl">产品文档</a>
+                    <a class="question-link" target="_blank" href="https://bk.tencent.com/s-mart/community">问题反馈</a>
+                    <a class="question-link" target="_blank" href="https://github.com/Tencent/bk-cmdb">开源社区</a>
                 </template>
             </bk-popover>
         </section>

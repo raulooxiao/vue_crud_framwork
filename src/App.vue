@@ -1,20 +1,16 @@
 <template>
-    <div id="app" :class="systemCls">
-        <ul class="header">
-            <li>
-                <a href="javascript:void(0);" :class="$route.name === 'example1' ? 'bk-text-button' : ''" @click.stop="goPage('example1')">example1</a>
-            </li>
-            <li>
-                <a href="javascript:void(0);" :class="$route.name === 'example2' ? 'bk-text-button' : ''" @click.stop="goPage('example2')">example2</a>
-            </li>
-            <li>
-                <a href="javascript:void(0);" :class="$route.name === 'example3' ? 'bk-text-button' : ''" @click.stop="goPage('example3')">example3</a>
-            </li>
-        </ul>
-        <main class="main-content" v-bkloading="{ isLoading: mainContentLoading, opacity: 1 }">
-            <router-view :key="routerKey" v-show="!mainContentLoading" />
-        </main>
-        <app-auth ref="bkAuth"></app-auth>
+    <div id="app" v-bkloading="{ isLoading: mainContentLoading }"
+        :class="{
+            'no-breadcrumb': hideBreadcrumbs,
+            'main-full-screen': mainFullScreen
+        }">
+        <div class="browser-tips" v-if="showBrowserTips">
+            <span class="tips-text">您的浏览器非Chrome，建议您使用最新版本的Chrome浏览，以保证最好的体验效果</span>
+            <i class="tips-icon bk-icon icon-close-circle-shape" @click="showBrowserTips = false"></i>
+        </div>
+        <the-header></the-header>
+        <router-view class="views-layout" :name="topView" ref="topView"></router-view>
+        <!-- <the-permission-modal ref="permissionModal"></the-permission-modal> -->
     </div>
 </template>
 <script>
@@ -22,18 +18,38 @@
 
     import { bus } from '@/common/bus'
 
+    import theHeader from '@/components/layout/header'
+    // import thePermissionModal from '@/components/modal/permission'
+    import { MENU_INDEX } from '@/dictionary/menu-symbol'
+
     export default {
         name: 'app',
+        components: {
+            theHeader
+            // thePermissionModal
+            // theLoginModal
+        },
         data () {
+            const showBrowserTips = window.navigator.userAgent.toLowerCase().indexOf('chrome') === -1
             return {
+                showBrowserTips,
                 routerKey: +new Date(),
                 systemCls: 'mac'
             }
         },
         computed: {
-            ...mapGetters(['mainContentLoading'])
+            ...mapGetters(['mainContentLoading']),
+            ...mapGetters(['site', 'globalLoading', 'mainFullScreen'])
+            // ...mapGetters('userCustom', ['usercustom', 'firstEntryKey', 'classifyNavigationKey'])
         },
         watch: {
+            site (site) {
+                let language = (this.$i18n.locale || 'cn').toLocaleLowerCase()
+                if (['zh-cn', 'zh_cn', 'zh', 'cn'].includes(language)) {
+                    language = 'cn'
+                }
+                document.title = site.title.i18n[language] || site.title.value
+            }
         },
         created () {
             const platform = window.navigator.platform.toLowerCase()
@@ -54,11 +70,16 @@
             })
         },
         methods: {
-            /**
-             * router 跳转
-             *
-             * @param {string} idx 页面指示
-             */
+            isIndex () {
+                return this.$route.name === MENU_INDEX
+            },
+            hideBreadcrumbs () {
+                return !(this.$route.meta.layout || {}).breadcrumbs
+            },
+            topView () {
+                const topRoute = this.$route.matched[0]
+                return (topRoute && topRoute.meta.view) || 'default'
+            },
             goPage (idx) {
                 this.$router.push({
                     name: idx
@@ -69,45 +90,52 @@
 </script>
 
 <style lang="scss" scoped>
-    @import './css/reset.css';
-    @import './css/app.css';
-
-    #app {
-        width: 800px;
-        position: absolute;
-        left: 50%;
-        top: 10%;
-        margin-left: -400px;
-        font-size: 14px;
-        color: #737987;
+    #app{
+        height: 100%;
     }
-    .header {
-        margin-bottom: 20px;
-        li {
-            margin: 0 10px 0 0;
+    .browser-tips{
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 40px;
+        line-height: 40px;
+        text-align: center;
+        color: #ff5656;
+        background-color: #f8f6db;
+        z-index: 99999;
+        .tips-text{
+            margin: 0 20px 0 0 ;
+        }
+        .tips-icon{
+            cursor: pointer;
         }
     }
-    .main-content {
-        border: 1px solid #ddd;
-        min-height: 600px;
-        padding: 5px 15px 15px 15px;
+    .views-layout{
+        height: calc(100% - 58px);
     }
-    h1,
-    h2 {
-        font-weight: normal;
+    // 主内容区全屏
+    .main-full-screen {
+        ::v-deep {
+            .header-layout,
+            .nav-layout,
+            .breadcrumbs-layout {
+                display: none;
+            }
+        }
+        .views-layout {
+            height: 100%;
+        }
     }
-    ul {
-        list-style-type: none;
-        padding: 0;
-    }
-    li {
-        display: inline-block;
-        margin: 0 10px;
-    }
-    a {
-        color: #737987;
-    }
-    .split {
-        margin-bottom: 15px;
+    .no-breadcrumb {
+        ::v-deep {
+            .main-layout {
+                margin-top: 0
+            }
+            .main-views {
+                height: 100%;
+                margin-top: 0;
+            }
+        }
     }
 </style>

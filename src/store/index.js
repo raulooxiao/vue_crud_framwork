@@ -20,13 +20,57 @@ const store = new Vuex.Store({
     // 公共 store
     state: {
         mainContentLoading: false,
+        config: {
+            site: {},
+            validationRules: {}
+        },
         // 系统当前登录用户
-        user: {}
+        user: {},
+        userName: '',
+        nav: {
+            stick: window.localStorage.getItem('navStick') !== 'false',
+            fold: window.localStorage.getItem('navStick') === 'false'
+        },
+        header: {
+            back: false
+        },
+        layout: {
+            mainFullScreen: false
+        },
+        userList: [],
+        headerTitle: '',
+        permission: [],
+        appHeight: window.innerHeight,
+        title: null,
+        businessSelectorVisible: false,
+        businessSelectorPromise: null,
+        businessSelectorResolver: null,
+        scrollerState: {
+            scrollbar: false
+        }
     },
     // 公共 getters
     getters: {
         mainContentLoading: state => state.mainContentLoading,
-        user: state => state.user
+        user: state => state.user,
+        userName: state => state.user.username,
+        site: state => {
+            // 通过getter和CMDB_CONFIG.site获取的site值确保为页面定义和配置定义的集合
+            return { ...window.Site, ...state.config.site }
+        },
+        isBusinessSelected: (state, getters, rootState, rootGetters) => {
+            return rootGetters['objectBiz/bizId'] !== null
+        },
+        navStick: state => state.nav.stick,
+        navFold: state => state.nav.fold,
+        mainFullScreen: state => state.layout.mainFullScreen,
+        showBack: state => state.header.back,
+        userList: state => state.userList,
+        headerTitle: state => state.headerTitle,
+        permission: state => state.permission,
+        title: state => state.title,
+        businessSelectorVisible: state => state.businessSelectorVisible,
+        scrollerState: state => state.scrollerState
     },
     // 公共 mutations
     mutations: {

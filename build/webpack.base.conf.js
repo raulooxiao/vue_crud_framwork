@@ -8,7 +8,7 @@ import CopyWebpackPlugin from 'copy-webpack-plugin'
 import { VueLoaderPlugin } from 'vue-loader'
 import friendlyFormatter from 'eslint-friendly-formatter'
 
-import { resolve, assetsPath } from './util'
+import { resolve, assetsPath, resolveScssResource } from './util'
 import config from './config'
 
 const isProd = process.env.NODE_ENV === 'production'
@@ -109,8 +109,17 @@ export default {
                 use: [
                     'vue-style-loader',
                     'css-loader',
-                    'sass-loader'
-                ]
+                    'postcss-loader',
+                    'sass-loader',
+                    {
+                        loader: 'sass-resources-loader',
+                        options: {
+                            resources: [
+                                resolveScssResource('_vars.scss'),
+                                resolveScssResource('_mixins.scss')
+                            ]
+                        }
+                    }]
             }
         ]
     },

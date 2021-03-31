@@ -18,8 +18,8 @@
                 :data="list"
                 :max-height="193"
                 class="permission-table">
-                <bk-table-column prop="name" :label="$t('需要申请的权限')"></bk-table-column>
-                <bk-table-column prop="resource" :label="$t('关联的资源实例')">
+                <bk-table-column prop="name" :label="需要申请的权限"></bk-table-column>
+                <bk-table-column prop="resource" :label="关联的资源实例">
                     <template slot-scope="{ row }">
                         <div v-if="row.relations.length" style="overflow: auto;">
                             <div class="permission-resource"
@@ -64,15 +64,15 @@
                 permission: [],
                 list: [],
                 i18n: {
-                    permissionTitle: this.$t('没有权限访问或操作此资源'),
-                    system: this.$t('系统'),
-                    resource: this.$t('资源'),
-                    requiredPermissions: this.$t('需要申请的权限'),
-                    noData: this.$t('无数据'),
-                    apply: this.$t('去申请'),
-                    applied: this.$t('已完成'),
-                    cancel: this.$t('取消'),
-                    close: this.$t('关闭')
+                    permissionTitle: '没有权限访问或操作此资源',
+                    system: '系统',
+                    resource: '资源',
+                    requiredPermissions: '需要申请的权限',
+                    noData: '无数据',
+                    apply: '去申请',
+                    applied: '已完成',
+                    cancel: '取消',
+                    close: '关闭'
                 }
             }
         },
@@ -152,7 +152,7 @@
         .permission-resource {
             line-height: 24px;
         }
-        /deep/ {
+        ::v-deep {
             .bk-table-row {
                 td.is-first {
                     vertical-align: top;

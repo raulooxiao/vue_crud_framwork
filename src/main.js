@@ -16,7 +16,23 @@ import Exception from '@/components/exception'
 import { bus } from '@/common/bus'
 import AuthComponent from '@/components/auth'
 import '@/common/bkmagic'
+// cmdb
+import './magicbox'
+import './directives'
+import './setup/permission'
+import './assets/scss/common.scss'
 
+import i18n from './i18n'
+import cmdbRequestMixin from './mixins/request'
+import cmdbAuthMixin from './mixins/auth'
+import cmdbAppMixin from './mixins/app.js'
+
+import cmdbUI from './components/ui'
+
+Vue.use(cmdbUI)
+Vue.mixin(cmdbRequestMixin)
+Vue.mixin(cmdbAuthMixin)
+Vue.mixin(cmdbAppMixin)
 Vue.component('app-exception', Exception)
 Vue.component('app-auth', AuthComponent)
 
@@ -30,6 +46,7 @@ auth.requestCurrentUser().then(user => {
             el: '#app',
             router,
             store,
+            i18n,
             components: { App },
             template: '<App/>'
         })
