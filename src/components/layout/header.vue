@@ -13,7 +13,7 @@
                 :class="{
                     active: isLinkActive(nav)
                 }">
-                {{nav.i18n}}
+                {{$t(nav.i18n)}}
             </router-link>
         </nav>
         <section class="header-info">
@@ -70,7 +70,7 @@
         },
         computed: {
             ...mapGetters(['site', 'userName']),
-            ...mapGetters('objectBiz', ['bizId']),
+            // ...mapGetters('objectBiz', ['bizId']),
             helpDocUrl () {
                 return this.site.helpDocUrl || 'http://docs.bk.tencent.com/product_white_paper/cmdb/'
             }

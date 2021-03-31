@@ -7,7 +7,7 @@ import './public-path'
 import Vue from 'vue'
 
 import App from '@/App'
-import router from '@/router'
+import router from '@/router/index.js'
 import store from '@/store'
 import { injectCSRFTokenToHeaders } from '@/api'
 import auth from '@/common/auth'
@@ -26,6 +26,7 @@ import i18n from './i18n'
 import cmdbRequestMixin from './mixins/request'
 import cmdbAuthMixin from './mixins/auth'
 import cmdbAppMixin from './mixins/app.js'
+import routerActions from './router/actions'
 
 import cmdbUI from './components/ui'
 
@@ -35,6 +36,8 @@ Vue.mixin(cmdbAuthMixin)
 Vue.mixin(cmdbAppMixin)
 Vue.component('app-exception', Exception)
 Vue.component('app-auth', AuthComponent)
+
+Vue.prototype.$routerActions = routerActions
 
 auth.requestCurrentUser().then(user => {
     injectCSRFTokenToHeaders()

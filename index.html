@@ -22,13 +22,30 @@
                 }
             })()
 
-            window.onload = function () {
-                let ta = document.createElement('script')
-                ta.src = '//tajs.qq.com/stats?sId=64878578'
-                ta.defer = 'defer'
-                let s = document.getElementsByTagName('script')[0]
-                s.parentNode.insertBefore(ta, s)
+            window.Site = {
+                url: '/',
+                version: 'v1',
+                login: '/xiao/login',
+                agent: '/xiao/agent',
+                authscheme: 'internal',
+                authCenter: '{}',
+                buildVersion: 'dev',
+                fullTextSearch: 'off',
+                helpDocUrl: 'http://baidu.com'
             }
+            window.User = {
+                admin: '1',
+                name: 'admin'
+            }
+            window.Supplier = {
+                account: '0'
+            }
+            window.ESB = {
+                userManage: ''
+            }
+            window.API_HOST = Site.buildVersion.indexOf('dev') !== -1 ? Site.url : (window.location.origin + '/')
+            window.API_PREFIX = API_HOST + 'api/' + Site.version
+
         </script>
     </body>
 </html>

@@ -21,6 +21,31 @@
                     REMOTE_STATIC_URL: REMOTE_STATIC_URL
                 }
             })()
+
+            window.Site = {
+                url: '/',
+                version: 'v1',
+                login: '/xiao/login',
+                agent: '/xiao/agent',
+                authscheme: 'internal',
+                authCenter: '{}',
+                buildVersion: 'dev',
+                fullTextSearch: 'off',
+                helpDocUrl: 'http://baidu.com'
+            }
+            window.User = {
+                admin: '1',
+                name: 'admin'
+            }
+            window.Supplier = {
+                account: '0'
+            }
+            window.ESB = {
+                userManage: ''
+            }
+            window.API_HOST = Site.buildVersion.indexOf('dev') !== -1 ? Site.url : (window.location.origin + '/')
+            window.API_PREFIX = API_HOST + 'api/' + Site.version
+
         </script>
     </body>
 </html>

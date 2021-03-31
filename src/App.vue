@@ -1,5 +1,5 @@
 <template>
-    <div id="app" v-bkloading="{ isLoading: mainContentLoading }"
+    <div id="app" v-bkloading="{ isLoading: globalLoading }"
         :class="{
             'no-breadcrumb': hideBreadcrumbs,
             'main-full-screen': mainFullScreen
@@ -38,15 +38,15 @@
             }
         },
         computed: {
-            ...mapGetters(['mainContentLoading']),
-            ...mapGetters(['site', 'globalLoading', 'mainFullScreen'])
-            // ...mapGetters('userCustom', ['usercustom', 'firstEntryKey', 'classifyNavigationKey'])
+            // ...mapGetters(['mainContentLoading']),
+            ...mapGetters(['site', 'globalLoading', 'mainFullScreen']),
+            ...mapGetters('userCustom', ['usercustom', 'firstEntryKey', 'classifyNavigationKey'])
         },
         watch: {
             site (site) {
                 let language = (this.$i18n.locale || 'cn').toLocaleLowerCase()
                 if (['zh-cn', 'zh_cn', 'zh', 'cn'].includes(language)) {
-                    language = 'cn'
+                    language = 'en'
                 }
                 document.title = site.title.i18n[language] || site.title.value
             }
@@ -78,6 +78,7 @@
             },
             topView () {
                 const topRoute = this.$route.matched[0]
+                console.log(333, topRoute)
                 return (topRoute && topRoute.meta.view) || 'default'
             },
             goPage (idx) {
