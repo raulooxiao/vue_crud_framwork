@@ -15,11 +15,9 @@
 </template>
 <script>
     import { mapGetters } from 'vuex'
-
-    import { bus } from '@/common/bus'
-
     import theHeader from '@/components/layout/header'
     // import thePermissionModal from '@/components/modal/permission'
+    import { addResizeListener, removeResizeListener } from '@/utils/resize-events'
     import { MENU_INDEX } from '@/dictionary/menu-symbol'
 
     export default {
@@ -40,13 +38,32 @@
         computed: {
             // ...mapGetters(['mainContentLoading']),
             ...mapGetters(['site', 'globalLoading', 'mainFullScreen']),
-            ...mapGetters('userCustom', ['usercustom', 'firstEntryKey', 'classifyNavigationKey'])
+            ...mapGetters('userCustom', ['usercustom', 'firstEntryKey', 'classifyNavigationKey']),
+            isIndex () {
+                return this.$route.name === MENU_INDEX
+            },
+            hideBreadcrumbs () {
+                return !(this.$route.meta.layout || {}).breadcrumbs
+            },
+            topView () {
+                const topRoute = this.$route.matched[0]
+                return (topRoute && topRoute.meta.view) || 'default'
+            },
+            loginUrl () {
+                const siteLoginUrl = this.site.login || ''
+                const loginStrIndex = siteLoginUrl.indexOf('login')
+                let loginModalUrl
+                if (loginStrIndex > -1) {
+                    loginModalUrl = siteLoginUrl.substring(0, loginStrIndex) + 'login/plain'
+                }
+                return loginModalUrl
+            }
         },
         watch: {
             site (site) {
                 let language = (this.$i18n.locale || 'cn').toLocaleLowerCase()
                 if (['zh-cn', 'zh_cn', 'zh', 'cn'].includes(language)) {
-                    language = 'en'
+                    language = 'cn'
                 }
                 document.title = site.title.i18n[language] || site.title.value
             }
@@ -58,33 +75,17 @@
             }
         },
         mounted () {
-            const self = this
-            bus.$on('show-login-modal', data => {
-                self.$refs.bkAuth.showLoginModal(data)
-            })
-            bus.$on('close-login-modal', () => {
-                self.$refs.bkAuth.hideLoginModal()
-                setTimeout(() => {
-                    window.location.reload()
-                }, 0)
-            })
+            addResizeListener(this.$el, this.calculateAppHeight)
+            window.permissionModal = this.$refs.permissionModal
+            window.loginModal = this.$refs.loginModal
+        },
+        beforeDestroy () {
+            // removeResizeListener(this.$refs.mainScroller, execMainResizeListener)
+            removeResizeListener(this.$el, this.calculateAppHeight)
         },
         methods: {
-            isIndex () {
-                return this.$route.name === MENU_INDEX
-            },
-            hideBreadcrumbs () {
-                return !(this.$route.meta.layout || {}).breadcrumbs
-            },
-            topView () {
-                const topRoute = this.$route.matched[0]
-                console.log(333, topRoute)
-                return (topRoute && topRoute.meta.view) || 'default'
-            },
-            goPage (idx) {
-                this.$router.push({
-                    name: idx
-                })
+            calculateAppHeight () {
+                this.$store.commit('setAppHeight', this.$el.offsetHeight)
             }
         }
     }

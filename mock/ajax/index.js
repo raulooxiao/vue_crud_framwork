@@ -3,17 +3,17 @@
  * @author raulxiao
  */
 
-import moment from 'moment'
-import faker from 'faker'
-import chalk from 'chalk'
+// import moment from 'moment'
+// import faker from 'faker'
+// import chalk from 'chalk'
 
-import { randomInt, sleep } from './util'
+import { sleep } from './util'
 
 export async function response (getArgs, postArgs, req) {
-    console.log(chalk.cyan('req', req.method))
-    console.log(chalk.cyan('getArgs', JSON.stringify(getArgs, null, 0)))
-    console.log(chalk.cyan('postArgs', JSON.stringify(postArgs, null, 0)))
-    console.log()
+    // console.log(chalk.cyan('req', req.method))
+    // console.log(chalk.cyan('getArgs', JSON.stringify(getArgs, null, 0)))
+    // console.log(chalk.cyan('postArgs', JSON.stringify(postArgs, null, 0)))
+    // console.log()
     const invoke = getArgs.invoke
     if (invoke === 'getUserInfo') {
         return {
@@ -23,7 +23,7 @@ export async function response (getArgs, postArgs, req) {
             data: {
                 id: '1234567890',
                 username: 'admin',
-                timestamp: +new Date
+                timestamp: +new Date()
             },
             message: 'ok'
         }

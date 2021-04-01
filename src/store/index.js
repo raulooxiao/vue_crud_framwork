@@ -9,6 +9,20 @@ import Vuex from 'vuex'
 import global from './modules/global.js'
 import request from './modules/request.js'
 import example from './modules/example'
+// 模型
+import objectAssociation from './modules/api/object-association.js'
+import objectBatch from './modules/api/object-batch.js'
+import objectBiz from './modules/api/object-biz.js'
+import objectCommonInst from './modules/api/object-common-inst.js'
+import objectMainLineModule from './modules/api/object-main-line-module.js'
+import objectModelClassify from './modules/api/object-model-classify.js'
+import objectModelFieldGroup from './modules/api/object-model-field-group.js'
+import objectModelProperty from './modules/api/object-model-property.js'
+import objectModel from './modules/api/object-model.js'
+import objectModule from './modules/api/object-module.js'
+import objectRelation from './modules/api/object-relation.js'
+import objectSet from './modules/api/object-set.js'
+import objectUnique from './modules/api/object-unique.js'
 import { unifyObjectStyle } from '@/common/util'
 
 Vue.use(Vuex)
@@ -18,7 +32,21 @@ const store = new Vuex.Store({
     // 模块
     modules: {
         example,
-        request
+        request,
+        // 模型
+        objectAssociation,
+        objectBatch,
+        objectBiz,
+        objectCommonInst,
+        objectMainLineModule,
+        objectModelClassify,
+        objectModelFieldGroup,
+        objectModelProperty,
+        objectModel,
+        objectModule,
+        objectRelation,
+        objectSet,
+        objectUnique
     }
 })
 

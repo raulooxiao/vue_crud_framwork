@@ -20,6 +20,7 @@ import '@/common/bkmagic'
 import './magicbox'
 import './directives'
 import './setup/permission'
+import tools from './utils/tools'
 import './assets/scss/common.scss'
 
 import i18n from './i18n'
@@ -38,6 +39,7 @@ Vue.component('app-exception', Exception)
 Vue.component('app-auth', AuthComponent)
 
 Vue.prototype.$routerActions = routerActions
+Vue.prototype.$tools = tools
 
 auth.requestCurrentUser().then(user => {
     injectCSRFTokenToHeaders()

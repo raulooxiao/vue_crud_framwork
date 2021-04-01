@@ -1,7 +1,6 @@
 // import business from '@/views/business/router.config'
 
 // import eventpush from '@/views/eventpush/router.config'
-import index from '@/views/index/router.config'
 
 import model from '@/views/model-manage/router.config'
 import modelAssociation from '@/views/model-association/router.config'
@@ -41,10 +40,6 @@ export const injectStatusComponents = (views, status = ['permission', 'error']) 
     return views
 }
 
-export const indexViews = injectStatusComponents(flatternViews([
-    index
-]))
-
 // export const resourceViews = injectStatusComponents(flatternViews([
 //     business,
 //     resource,
@@ -63,7 +58,6 @@ export const modelViews = injectStatusComponents(flatternViews([
 ]))
 
 export default {
-    ...indexViews,
     // ...resourceViews,
     ...modelViews
 }
