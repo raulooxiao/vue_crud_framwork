@@ -9,7 +9,8 @@ import Vue from 'vue'
 import App from '@/App'
 import router from '@/router/index.js'
 import store from '@/store'
-import { injectCSRFTokenToHeaders } from '@/api'
+// import { injectCSRFTokenToHeaders } from '@/api'
+import api from './api'
 import auth from '@/common/auth'
 import Img403 from '@/images/403.png'
 import Exception from '@/components/exception'
@@ -40,9 +41,10 @@ Vue.component('app-auth', AuthComponent)
 
 Vue.prototype.$routerActions = routerActions
 Vue.prototype.$tools = tools
+Vue.prototype.$http = api
 
 auth.requestCurrentUser().then(user => {
-    injectCSRFTokenToHeaders()
+    // injectCSRFTokenToHeaders()
     if (!user.isAuthenticated) {
         auth.redirectToLogin()
     } else {

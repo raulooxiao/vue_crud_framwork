@@ -41,7 +41,9 @@ const actions = {
      * @return {promises} promises 对象
      */
     searchGroup ({ commit, state, dispatch, rootGetters }, { objId, params, config }) {
-        return $http.post(`find/objectattgroup/object/${objId}`, params, config)
+        let url = `find/objectattgroup/object/${objId}`
+        url = `${url}?${AJAX_MOCK_PARAM}=cmdb&invoke=biz`
+        return $http.post(url, params, config)
     },
 
     /**

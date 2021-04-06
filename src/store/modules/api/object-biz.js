@@ -18,14 +18,16 @@ const state = {
 
 const getters = {
     business: state => state.business,
-    bizId: state => state.bizId,
-    currentBusiness: state => state.authorizedBusiness.find(business => business.bk_biz_id === state.bizId),
+    bizId: state => 2 || state.bizId,
+    currentBusiness: state => 2 || state.authorizedBusiness.find(business => business.bk_biz_id === state.bizId),
     authorizedBusiness: state => state.authorizedBusiness || []
 }
 
 const actions = {
     getAuthorizedBusiness ({ commit, state }, config = {}) {
-        return $http.get('biz/with_reduced?sort=bk_biz_id', config)
+        let url = 'biz/with_reduced?sort=bk_biz_id'
+        url = `${url}&${AJAX_MOCK_PARAM}=cmdb&invoke=with_reduced`
+        return $http.get(url, config)
     },
     /**
      * 添加业务

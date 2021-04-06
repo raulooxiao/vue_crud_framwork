@@ -113,7 +113,9 @@ const actions = {
      * @return {promises} promises 对象
      */
     searchObjectAttribute ({ commit, state, dispatch }, { params, config, injectId = false }) {
-        return $http.post('find/objectattr', params, config).then(data => {
+        let url = 'find/objectattr'
+        url = `${url}?${AJAX_MOCK_PARAM}=cmdb&invoke=objectattr`
+        return $http.post(url, params, config).then(data => {
             if (injectId !== params.bk_obj_id) {
                 return data
             }

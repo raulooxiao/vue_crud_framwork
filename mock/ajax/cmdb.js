@@ -1316,6 +1316,20 @@ export async function response (getArgs, postArgs, req) {
                 }]
             }
         }
+    } else if (invoke === 'with_reduced') {
+        return {
+            'result': true,
+            'bk_error_code': 0,
+            'bk_error_msg': 'success',
+            'permission': null,
+            'data': {
+                'count': 1,
+                'info': [{
+                    'bk_biz_id': 2,
+                    'bk_biz_name': '蓝鲸'
+                }]
+            }
+        }
     }
     return {
         'result': true,

@@ -9,6 +9,9 @@ import Vuex from 'vuex'
 import global from './modules/global.js'
 import request from './modules/request.js'
 import example from './modules/example'
+// 用户
+import userCustom from './modules/api/user-custom.js'
+
 // 模型
 import objectAssociation from './modules/api/object-association.js'
 import objectBatch from './modules/api/object-batch.js'
@@ -33,6 +36,8 @@ const store = new Vuex.Store({
     modules: {
         example,
         request,
+        // 用户
+        userCustom,
         // 模型
         objectAssociation,
         objectBatch,
