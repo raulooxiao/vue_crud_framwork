@@ -24,30 +24,30 @@ import dynamicRouterView from '@/components/layout/dynamic-router-view'
 
 Vue.use(VueRouter)
 
-// const statusRouters = [
-//     {
-//         name: '404',
-//         path: '/404',
-//         components: require('@/views/status/404')
-//     }, {
-//         name: 'error',
-//         path: '/error',
-//         components: require('@/views/status/error')
-//     }
-// ]
+const statusRouters = [
+    {
+        name: '404',
+        path: '/404',
+        components: require('@/views/status/404')
+    }, {
+        name: 'error',
+        path: '/error',
+        components: require('@/views/status/error')
+    }
+]
 
-// const redirectRouters = [{
-//     path: '*',
-//     redirect: {
-//         name: '404'
-//     }
-// }]
+const redirectRouters = [{
+    path: '*',
+    redirect: {
+        name: '404'
+    }
+}]
 
 const router = new VueRouter({
     mode: 'hash',
     routes: [
-        // ...redirectRouters,
-        // ...statusRouters,
+        ...redirectRouters,
+        ...statusRouters,
         {
             name: MENU_MODEL,
             component: dynamicRouterView,

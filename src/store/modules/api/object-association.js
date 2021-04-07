@@ -112,7 +112,9 @@ const actions = {
      * @return {promises} promises 对象
      */
     searchAssociationListWithAssociationKindList ({ commit, state, dispatch }, { params, config }) {
-        return $http.post(`find/topoassociationtype`, params, config)
+        let url = `find/topoassociationtype`
+        url = `${url}?${AJAX_MOCK_PARAM}=cmdb&invoke=topoassociationtype`
+        return $http.post(url, params, config)
     },
     /**
      * 查询实例关联

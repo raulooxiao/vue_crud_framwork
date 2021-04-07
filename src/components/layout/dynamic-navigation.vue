@@ -65,6 +65,7 @@
         MENU_RESOURCE_HOST_COLLECTION,
         MENU_RESOURCE_BUSINESS_COLLECTION
     } from '@/dictionary/menu-symbol'
+
     export default {
         data () {
             return {
@@ -132,28 +133,29 @@
                 return menus
             },
             relativeActiveName () {
-                const relative = this.$tools.getValue(this.$route, 'meta.menu.relative')
-                if (relative && !this.hasExactActive) {
-                    const names = Array.isArray(relative) ? relative : [relative]
-                    let relativeActiveName = null
-                    for (let index = 0; index < names.length; index++) {
-                        const name = names[index]
-                        const isActive = this.currentMenus.some(menu => {
-                            if (menu.hasOwnProperty('route')) {
-                                return menu.route.name === name
-                            } else if (menu.submenu && menu.submenu.length) {
-                                return menu.submenu.some(submenu => submenu.route.name === name)
-                            }
-                            return false
-                        })
-                        if (isActive) {
-                            relativeActiveName = name
-                            break
-                        }
-                    }
-                    return relativeActiveName
-                }
-                return null
+                return this.$route.name
+                // const relative = this.$tools.getValue(this.$route, 'meta.menu.relative')
+                // if (relative && !this.hasExactActive) {
+                //     const names = Array.isArray(relative) ? relative : [relative]
+                //     let relativeActiveName = null
+                //     for (let index = 0; index < names.length; index++) {
+                //         const name = names[index]
+                //         const isActive = this.currentMenus.some(menu => {
+                //             if (menu.hasOwnProperty('route')) {
+                //                 return menu.route.name === name
+                //             } else if (menu.submenu && menu.submenu.length) {
+                //                 return menu.submenu.some(submenu => submenu.route.name === name)
+                //             }
+                //             return false
+                //         })
+                //         if (isActive) {
+                //             relativeActiveName = name
+                //             break
+                //         }
+                //     }
+                //     return relativeActiveName
+                // }
+                // return null
             }
         },
         watch: {
@@ -187,6 +189,7 @@
                     return
                 }
                 this.$nextTick(() => {
+                    // console.log(2, this.$refs.menuLink.some(link => link.$el.classList.contains('active')))
                     this.hasExactActive = this.$refs.menuLink.some(link => link.$el.classList.contains('active'))
                 })
             },

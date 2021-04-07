@@ -22,7 +22,6 @@ import './magicbox'
 import './directives'
 import './setup/permission'
 import tools from './utils/tools'
-import './assets/scss/common.scss'
 
 import i18n from './i18n'
 import cmdbRequestMixin from './mixins/request'
@@ -31,6 +30,10 @@ import cmdbAppMixin from './mixins/app.js'
 import routerActions from './router/actions'
 
 import cmdbUI from './components/ui'
+
+import '@icon-cool/bk-icon-cmdb'
+import '@icon-cool/bk-icon-cmdb-colorful/src/index'
+import './assets/scss/common.scss'
 
 Vue.use(cmdbUI)
 Vue.mixin(cmdbRequestMixin)
